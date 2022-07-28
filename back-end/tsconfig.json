@@ -2,6 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "es6",
+    "target": "ES2018",
     "moduleResolution": "node",
     "outDir": "dist"
   },

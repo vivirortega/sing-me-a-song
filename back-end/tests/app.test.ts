@@ -2,6 +2,7 @@ import supertest from "supertest";
 import app from "../src/app";
 import recommendationFactory from "./factories/recommendationFactory";
 import { prisma } from "../src/database";
+import { response } from "express";
 
 describe("POST/recommendations", () => {
   it("given name and link, add a new music recomendation", async () => {
@@ -18,11 +19,16 @@ describe("POST/recommendations", () => {
   });
 
   it("should return status 409 when name is already created", async () => {
-    const recommendation = recommendationFactory.recommendation();
+    const recommendation =  await recommendationFactory.newRecomendation();
+    const sameName = await recommendationFactory.sameName();
+    const sameRecommendation = {
+      "name":  sameName,
+      "youtubeLink": "https://www.youtube.com/watch?v=EG9t7Wsc9YU"
+    }
     const response = await supertest(app)
       .post("/recommendations")
-      .send(recommendation);
-    expect(response.status).toBe(201); //!TODO fix response
+      .send(sameRecommendation);
+    expect(response.status).toBe(409); 
   });
 
   it("should return status 422 when sent with wrong input values", async () => {
@@ -112,7 +118,7 @@ describe("GET/recommendations/top/:amount", () => {
     const response = await supertest(app).get(url);
     expect(response.status).toBe(200);
   });
-  
+
   it("should return empty array when amount is zero", async () => {
     const url = "/recommendations/top/0";
     const { body } = await supertest(app).get(url);

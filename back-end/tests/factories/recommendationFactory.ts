@@ -11,6 +11,14 @@ function recommendation() {
   return video;
 }
 
+function sameRecommendation(){
+  const video = {
+    name: "glide - mitski",
+    youtubeLink: "https://www.youtube.com/watch?v=EG9t7Wsc9YU",
+  };
+  return video;
+}
+
 function wrongRecommendation() {
   const video = {
     name: 1,
@@ -25,10 +33,16 @@ export async function newRecomendation() {
   return result.id;
 }
 
+export async function sameName() {
+  const music = sameRecommendation();
+  const result = await prisma.recommendation.create({ data: music });
+  return result.name;
+}
+
 const recommendationFactory = {
   recommendation,
   wrongRecommendation,
-  newRecomendation, 
+  newRecomendation, sameName 
 };
 
 export default recommendationFactory;

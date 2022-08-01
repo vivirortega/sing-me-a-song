@@ -30,5 +30,18 @@ describe("post/recommendation", () => {
   });
 });
 
+describe("post/recommendation/id/upvote", () => {
+    it("should vote in a recommendation", () => {
+      cy.visit(`${url}/`);
+      cy.get("#arrow-up").click();
+      cy.end();
+    });
+});
 
-
+describe("post/recommendation/id/downvote", () => {
+    it("should vote in a recommendation", () => {
+      cy.visit(`${url}/`);
+      cy.get("#arrow-down").click();
+      cy.end();
+    });
+});

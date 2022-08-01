@@ -64,6 +64,16 @@ describe("POST/recommendations/:id/downvote", () => {
   });
 });
 
+describe("GET/recommendations/:id", () => {
+  it("should return recommendation from id", async () => {
+    const id = await recommendationFactory.newRecomendation();
+    const url = `/recommendations/${id}`;
+    const response = await supertest(app).get(url);
+    console.log(id);
+    expect(response.status).toBe(200);
+  });
+});
+
 describe("GET/recommendations", () => {
   it("should return all recommendations", async () => {
     const response = await supertest(app).get("/recommendations");

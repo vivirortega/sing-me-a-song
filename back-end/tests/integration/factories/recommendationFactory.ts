@@ -1,5 +1,5 @@
 import { Recommendation } from "@prisma/client";
-import { prisma } from "../../src/database";
+import { prisma } from "../../../src/database";
 import { faker } from '@faker-js/faker';
 
 function recommendation() {

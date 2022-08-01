@@ -28,7 +28,7 @@ export async function newRecomendation() {
 const recommendationFactory = {
   recommendation,
   wrongRecommendation,
-  newRecomendation,
+  newRecomendation, 
 };
 
 export default recommendationFactory;

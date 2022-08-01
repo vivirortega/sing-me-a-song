@@ -69,9 +69,28 @@ describe("GET/recommendations/:id", () => {
     const id = await recommendationFactory.newRecomendation();
     const url = `/recommendations/${id}`;
     const response = await supertest(app).get(url);
-    console.log(id);
     expect(response.status).toBe(200);
   });
+
+  it("should return 404 when recommendation does not exist", async () => {
+    const url = "/recommendations/0";
+    const response = await supertest(app).get(url);
+    expect(response.status).toBe(404);
+  });
+});
+
+describe("GET /recommendations/random", () => {
+  it("should return random recommendations", async () => {
+    const response = await supertest(app).get("/recommendations/random");
+    expect(response.status).toBe(200);
+  })
+  
+  it("should return random recommendations does not exist", async () => {
+    const url = "/recommendations/0";
+    const response = await supertest(app).get(url);
+    expect(response.status).toBe(404);
+  })
+
 });
 
 describe("GET/recommendations", () => {

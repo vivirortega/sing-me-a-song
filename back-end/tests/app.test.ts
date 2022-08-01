@@ -43,16 +43,37 @@ describe("POST/recommendations/:id/upvote", () => {
   });
 
   it("should return status code 404 when recommendation does not exist", async () => {
-    const url = '/recommendations/0/upvote';
+    const url = "/recommendations/0/upvote";
     const response = await supertest(app).post(url);
     expect(response.status).toBe(404);
-  })
+  });
+});
+
+describe("POST/recommendations/:id/downvote", () => {
+  it("should return 200 when downvote is sucessful", async () => {
+    const id = await recommendationFactory.newRecomendation();
+    const url = `/recommendations/${id}/downvote`;
+    const response = await supertest(app).post(url);
+    expect(response.status).toBe(200);
+  });
+
+  it("should return status code 404 when recommendation does not exist", async () => {
+    const url = "/recommendations/0/downvote";
+    const response = await supertest(app).post(url);
+    expect(response.status).toBe(404);
+  });
 });
 
 describe("GET/recommendations", () => {
   it("should return all recommendations", async () => {
     const response = await supertest(app).get("/recommendations");
     expect(response.status).toBe(200);
+  });
+
+  it("should return 404 when recommendation does not exist", async () => {
+    const url = "/recommendations/0/";
+    const response = await supertest(app).get(url);
+    expect(response.status).toBe(404);
   });
 });
 
